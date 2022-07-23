@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="pro-img-details">
+                        <?php
+                            $lessonCover = $lessonData['lesson_cover'];
+                            if(!empty($lessonCover) && file_exists(UPLOADS."/lessons/".$lessonCover))
+                            {
+                        ?>
+                                <img src='<?php echo "../uploads/lessons/$lessonCover" ;?>' alt ='Lesson Cover'/>
+                        <?php 
+                            }
+                            else
+                            {
+                        ?>
+                                <img src='<?php echo "../uploads/lessons/default.jpg" ;?>' alt ='Lesson Cover'/>
+                        <?php 
+                            }
+                        ?>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h4 class="pro-d-title">
+                        <a>
+                           <?php echo $lessonData['lesson_title']?>
+                        </a>
+                        <a href="courselessons.php?action=manage&courseid=<?php echo $lessonData['lesson_course'];?>" class=" pull-right">
+                             View All Lessons <i class="icon-circle-arrow-right"></i>
+                        </a>
+                    </h4>
+                    <div class="product_meta">
+                        <p>
+                            <?php echo $lessonData['lesson_description']?>
+                        </p>
+                        <span class="tagged_as"><strong>Course Name:</strong><a> <?php echo strtoupper($lessonData['course_title']) ;?></a></span>
+                        <span class="tagged_as"><strong>Instructor Name:</strong><a> <?php echo strtoupper($lessonData['username']) ;?></a></span>
+                    </div>
+                    <form action="lessoncomments.php?action=add&courseid=<?php echo $lessonData['lesson_course']; ?>&lessonid=<?php echo $lessonData['lesson_id']; ?>" method="POST">
+                        <label>Add Comment : </label>
+                        <input name="commTitle" type="text" class="form-control" placeholder="Comment Title">
+                        <textarea name="commContent" style="margin-top:10px; margin-bottom: 10px;"  id="commentInpt" rows="5" class="form-control"  placeholder="Comment Content"></textarea>
+                        <input type="submit" id="AddComment" class="btn btn-success" value="Add Comment" name="addComment" >
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <header class="panel-heading tab-bg-dark-navy-blue">
+                <ul class="nav nav-tabs ">
+                    <li class="active">
+                        <a data-toggle="tab" href="#video">
+                            Video
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#lessonComments">
+                            <i class="icon-comment"></i> Comments
+                        </a>
+                    </li>
+                </ul>
+            </header>
+
+            <div class="panel-body">
+                <div class="tab-content tasi-tab">
+                    <!-- Start Video Content  -->
+                    <div id="video" class="tab-pane active">
+                        <h4 class="pro-d-head">Watch Lesson</h4>
+                        <iframe src="<?php echo $lessonData['lesson_video'] ;?>" frameborder="0" width="100%" height="400px"></iframe>
+                    </div>
+                    <!-- End Video Content  -->
+
+                    <!-- start Comments Content  -->
+                    <div id="lessonComments" class="tab-pane" style="margin-bottom: 15px;">
+                        
+                        <?php
+                        if(count($lessonComments) > 0)
+                        {
+                            foreach($lessonComments as $comment)
+                            {
+                                $lessonid       = $comment["comment_lesson"];
+                                $userid         = $comment["comment_user"];
+                                $userImage      = $comment["image"];
+                                $userName       = $comment["username"];
+                                $commentid      = $comment["comment_id"];
+                                $commentTitle   = $comment["comment_title"];
+                                $commentContent = $comment["comment_content"];
+                               
+                        ?>
+                                <article class="media">
+                                    <a class="pull-left thumb p-thumb">
+                                            <?php
+                                                if(!empty($userImage) && file_exists(UPLOADS."/users/".$userImage))
+                                                {
+                                            ?>
+                                                    <img id="userAvatar"  src='<?php echo "../uploads/users/$userImage" ;?>' alt ='User Image'/>
+                                            <?php 
+                                                }
+                                                else
+                                                {
+                                            ?>
+                                                    <img id="userAvatar"  src='<?php echo "../uploads/users/default.png" ;?>' alt ='User Image'/>
+                                            <?php 
+                                                }
+                                            ?>
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="#" class="cmt-head"><?php echo $userName;  ?> .</a>
+                                        <h5><i class="icon-comment"></i> <?php echo $commentTitle;  ?></h5>
+                                        <p><?php echo $commentContent;  ?></p>
+                                        <a href="lessoncomments.php?action=delete&courseid=<?php echo $lessonData['lesson_course']; ?>&lessonid=<?php echo $lessonData['lesson_id']; ?>&comid=<?php echo $commentid ?>" class="text-danger"><i class="icon-trash"></i> Delete</a>
+                                    </div>
+                                </article>
+                        <?php  }
+                            }
+                            else
+                            {
+                                echo '<p>No Lessons Comments</p>';
+                            }
+                        ?> 
+                    </div>  
+                     <!-- End Comments Content  -->
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

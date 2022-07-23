@@ -1,0 +1,49 @@
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Update Course
+        </header>
+        <div class="panel-body">
+            <form role="form" action="?action=update&courseid=<?php echo $courseId?>" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter Course Name" value="<?php echo $courseData['course_title']?>">
+                </div>
+
+                <div class="form-group">
+                    <label>Course Description</label>
+                    <textarea class="form-control" name="description" rows="10"><?php echo $courseData['course_description']?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Cover</label>
+                    <input type="hidden" name="oldcover" value="<?php echo $courseData['course_cover']?>">
+                    <input type="file" class="form-control" name="CourseCover">
+                </div>
+
+                <div class="form-group">
+                    <label>Course Category</label>
+                    <select name="courseCategory"  class="form-control">
+                        <option value="" >choose Course Category</option>
+                        <?php
+                            foreach($categories as $category)
+                            {
+                                $categoryId   = $category['category_id'];
+                                $CateoryName  = $category['category_name'];
+                                echo '<option value="'.$categoryId.'"';
+                                    if($categoryId == $courseData['course_category'])
+                                        echo 'selected';
+                                echo '>'.$CateoryName.'</option>';
+                            } 
+                        ?>
+                    </select> 
+                </div>
+
+
+                <input type="submit" class="btn btn-success" value="Update Course" name="updatecourse">
+            </form>
+
+        </div>
+    </section>
+</div>

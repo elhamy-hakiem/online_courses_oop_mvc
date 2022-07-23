@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="pro-img-details">
+                        <?php
+                            $studentImage = $studentData['image'];
+                            if(!empty($studentImage) && file_exists(UPLOADS."/users/".$studentImage))
+                            {
+                        ?>
+                                <img src='<?php echo "../uploads/users/$studentImage" ;?>' alt ='Student Image'/>
+                        <?php 
+                            }
+                            else
+                            {
+                        ?>
+                                <img src='<?php echo "../uploads/users/default.png" ;?>' alt ='Student Image'/>
+                        <?php 
+                            }
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="pro-d-title">
+                        <a href="#" class="">
+                        <?php echo $studentData['username'] ;?>
+                        </a>
+                        <a href="coursestudents.php?action=manage&courseid=<?php echo $courseData['course_id'];?>" class=" pull-right">
+                            View All Students <i class="icon-circle-arrow-right"></i>
+                       </a>
+                    </h4>
+
+                    <div class="product_meta">
+                        <span class="tagged_as"><strong>Email:</strong><a> <?php echo $studentData['email'] ;?></a></span>
+                        <span class="tagged_as"><strong>Course Category:</strong><a> <?php echo strtoupper($courseData['category_name']) ;?></a></span>
+                        <span class="tagged_as"><strong>Course Name:</strong><a> <?php echo strtoupper($courseData['course_title']) ;?></a></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

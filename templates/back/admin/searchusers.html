@@ -1,0 +1,45 @@
+<?php
+if(count($users) > 0)
+{
+    foreach($users as $user)
+    {
+        $userid      = $user["user_id"];
+        $username    = $user["username"];
+        $userImage   = $user["image"];
+        $email       = $user["email"];
+        $group       = $user["group_name"];
+        $groupid     = $user["user_group"];
+?>
+        <tr>
+            <td>
+                <?php
+                    if(!empty($userImage) && file_exists(UPLOADS."/users/".$userImage))
+                    {
+                ?>
+                        <img id="userAvatar"  src='<?php echo "../uploads/users/$userImage" ;?>' alt ='User Avatar'/>
+                <?php 
+                    }
+                    else
+                    {
+                ?>
+                        <img id="userAvatar"  src='<?php echo "../uploads/users/default.png" ;?>' alt ='User Avatar'/>
+                <?php 
+                    }
+                ?>
+            </td>
+            <td><?php echo $username; ?></td>
+            <td><?php echo $email; ?></td>
+            <td><a href="usersgroups.php?action=update&gid=<?php echo $groupid; ?>"  class="btn btn-success"><i class="icon-user"></i> <?php echo $group; ?></a></td>
+
+            <td>
+                <a href="users.php?action=update&userid=<?php echo $userid; ?>" type="button" class="btn btn-info "><i class="icon-refresh"></i> Update</a>
+                <a href="users.php?action=delete&userid=<?php echo $userid; ?>" type="button" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
+            </td>
+        </tr>
+<?php  }
+}
+else
+{
+    echo '<tr><td colspan="5">No Users Found</td></tr>';
+}
+?>

@@ -1,0 +1,71 @@
+<!-- page start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Lessons For <strong><?php echo strtoupper($courseData['course_title']); ?> </strong>Course 
+                </header>
+                <div class="panel-body">
+                    <section id="unseen">
+                        <table <?php if(count($lessons) > 0) {echo 'id="lessonsTable"';}?> class="table table-bordered table-striped table-condensed display">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Cover</th>
+                                <th>Title</th>
+                                <th>Control</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if(count($lessons) > 0)
+                                    {
+                                        foreach($lessons as $lesson)
+                                        {
+                                            $lessonid      = $lesson["lesson_id"];
+                                            $lessoncover   = $lesson["lesson_cover"];
+                                            $title         = $lesson["lesson_title"];
+
+                                            $courseid      = $lesson["lesson_course"];
+                                ?>
+                                            <tr>
+                                                <td><?php echo $lessonid; ?></td>
+                                                <td>
+                                                    <?php
+                                                        if(!empty($lessoncover) && file_exists(UPLOADS."/lessons/".$lessoncover))
+                                                        {
+                                                    ?>
+                                                            <img id="userAvatar"  src='<?php echo "../uploads/lessons/$lessoncover" ;?>' alt ='Lesson cover'/>
+                                                    <?php 
+                                                        }
+                                                        else
+                                                        {
+                                                    ?>
+                                                            <img id="userAvatar"  src='<?php echo "../uploads/lessons/default.jpg" ;?>' alt ='Lesson cover'/>
+                                                    <?php 
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td><?php echo $title; ?></td>
+                                                <td>
+                                                    <a href="courselessons.php?action=view&courseid=<?php echo $courseid; ?>&lessonid=<?php echo $lessonid; ?>" type="button" class="btn btn-success"><i class="icon-eye-open"></i> View</a>
+                                                    <a href="courselessons.php?action=update&courseid=<?php echo $courseid; ?>&lessonid=<?php echo $lessonid; ?>" type="button" class="btn btn-info"><i class="icon-refresh"></i> Update</a>
+                                                    <a href="courselessons.php?action=delete&courseid=<?php echo $courseid; ?>&lessonid=<?php echo $lessonid; ?>" type="button" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
+                                                </td>
+                                            </tr>
+                                <?php  }
+                                    }
+                                    else
+                                    {
+                                        echo '<tr><td colspan="4">No Course Lessons Found</td></tr>';
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                        <a href="courselessons.php?action=add&courseid=<?php echo $courseData['course_id'];?>" type="button" class="btn btn-primary"><i class="icon-plus"></i> Add Lesson</a>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- page end-->

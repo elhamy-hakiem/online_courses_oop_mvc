@@ -1,0 +1,33 @@
+
+                            <?php
+                                if(count($courses) > 0)
+                                {
+                                    foreach($courses as $course)
+                                    {
+                                        $courseid      = $course["course_id"];
+                                        $title         = $course["course_title"];
+                                        $category      = $course["category_name"];
+                                        $instructor    = $course["username"];
+
+                                        $instructorId  = $course["course_instructor"];
+                                        $categoryId    = $course["course_category"];
+                                      
+                            ?>
+                                        <tr>
+                                            <td><?php echo $courseid; ?></td>
+                                            <td><?php echo $title; ?></td>
+                                            <td><a href="courses.php?action=manage&cid=<?php echo $categoryId; ?>"><i class="icon-tags"></i> <?php echo $category; ?></a></td>
+                                            <td><a href="courses.php?action=manage&uid=<?php echo $instructorId; ?>"><i class="icon-user"></i> <?php echo $instructor; ?></a></td>
+
+                                            <td>
+                                                <a href="courses.php?action=delete&courseid=<?php echo $courseid; ?>" type="button" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
+                                            </td>
+                                        </tr>
+                            <?php  }
+                                }
+                                else
+                                {
+                                    echo '<tr><td colspan="5">No Results Found</td></tr>';
+                                }
+                            ?>
+      

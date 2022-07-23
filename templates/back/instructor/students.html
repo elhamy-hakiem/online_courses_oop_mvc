@@ -1,0 +1,74 @@
+<!-- page start-->
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                   <strong><?php echo   strtoupper($courseData['course_title']);?></strong> Students
+                </header>
+                <div class="panel-body">
+                    <section id="unseen">
+                        <!-- <input style="margin-bottom: 10px; width: 200px;" type="search" class="form-control" placeholder="Search" id="searchUsers"> -->
+                        <table <?php if(count($students) > 0) {echo 'id="usersTable"';}?>  class="table table-bordered table-striped table-condensed display">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Control</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    if(count($students) > 0)
+                                    {
+                                        foreach($students as $student)
+                                        {
+                                            $courseid       = $student["course_id"];
+                                            $studentid      = $student["user_id"];
+                                            $studentName    = $student["username"];
+                                            $studentImage   = $student["image"];
+                                            $studentEmail       = $student["email"];
+                                ?>
+                                            <tr>
+                                                <td>
+                                                    <?php
+                                                        if(!empty($studentImage) && file_exists(UPLOADS."/users/".$studentImage))
+                                                        {
+                                                    ?>
+                                                            <img id="userAvatar"  src='<?php echo "../uploads/users/$studentImage" ;?>' alt ='Student Image'/>
+                                                    <?php 
+                                                        }
+                                                        else
+                                                        {
+                                                    ?>
+                                                            <img id="userAvatar"  src='<?php echo "../uploads/users/default.png" ;?>' alt ='Student Image'/>
+                                                    <?php 
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td><?php echo $studentName; ?></td>
+                                                <td><?php echo $studentEmail; ?></td>
+
+                                                <td>
+                                                    <?php if($student["approved"] == 0){?>
+                                                        <a href="coursestudents.php?action=approve&courseid=<?php echo $courseid;?>&studentid=<?php echo $studentid;?>" type="button" class="btn btn-success "><i class=" icon-check"></i> Approve</a>
+                                                    <?php }?>
+                                                    <a href="coursestudents.php?action=view&courseid=<?php echo $courseid;?>&studentid=<?php echo $studentid; ?>" type="button" class="btn btn-primary"><i class="icon-eye-open"></i> View</a>
+                                                    <a href="coursestudents.php?action=delete&courseid=<?php echo $courseid;?>&studentid=<?php echo $studentid; ?>" type="button" class="btn btn-danger"><i class="icon-trash"></i> Delete</a>
+                                                </td>
+                                            </tr>
+                                <?php  }
+                                    }
+                                    else
+                                    {
+                                        echo '<tr><td colspan="4">No Students Found</td></tr>';
+                                    }
+                                ?>
+                            </tbody>
+                    </table>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- page end-->

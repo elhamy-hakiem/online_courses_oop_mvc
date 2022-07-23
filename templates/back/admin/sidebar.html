@@ -1,0 +1,65 @@
+      <!--sidebar start-->
+      <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a class="active" href="index.php">
+                        <i class="icon-dashboard"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Start Users  -->
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="icon-user"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="users.php?action=manage">All Users</a></li>
+                        <li><a  href="users.php?action=add">Add Users</a></li>
+                        <li><a  href="usersgroups.php?action=manage">Users Groups</a></li>
+                        <li><a  href="usersgroups.php?action=add">Add User Group</a></li>
+                    </ul>
+                </li>
+                <!-- End Users  -->
+
+                <!-- Start Categories  -->
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="icon-tags"></i>
+                        <span>Category</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="categories.php?action=manage">All Categories</a></li>
+                        <li><a  href="categories.php?action=add">Add Category</a></li>
+                    </ul>
+                </li>
+                <!-- End Categories  -->
+
+                  <!-- Start Courses  -->
+                  <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="icon-book"></i>
+                        <span>Courses</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="courses.php?action=manage">All Courses</a></li>
+                    </ul>
+                </li>
+                <!-- End Courses  -->
+                
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <!-- Check if found errors  -->
+            <?php
+                 echo getErrors();
+                 getSuccessMsg();
+            ?>
